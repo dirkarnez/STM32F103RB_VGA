@@ -4,7 +4,7 @@
  * http://www.artekit.eu
  * Written by Ruben H. Meleca
  
-### main.c
+### gditypes.h
  
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -21,37 +21,25 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 ***************************************************************************/
+#ifndef	__GDPTYPES_H
+#define	__GDPTYPES_H
 
-#include "stm32f10x.h"
-#include "sys.h"
-#include "video.h"
-#include "gdi.h"
+#define	NULL			0x0
 
-extern void demoInit(void);
+//	Types
 
-void RCC_Configuration(void)
-{
-	/* TIM1, GPIOA, GPIOB, GPIOE and AFIO clocks enable */
-	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 | RCC_APB2Periph_SPI1 | RCC_APB2Periph_TIM1 | RCC_APB2Periph_GPIOA |
-							RCC_APB2Periph_GPIOB | RCC_APB2Periph_AFIO, ENABLE);
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
-}
+typedef	unsigned int	u32;
+typedef	int				i32;
+typedef	unsigned short	u16;
+typedef	short			i16;
+typedef	unsigned char	u8;
+typedef	char			i8;
 
-void GPIO_Configuration(void)
-{
+typedef	u32				*pu32;
+typedef	i32				*pi32;
+typedef u16				*pu16;
+typedef i16				*pi16;
+typedef	u8				*pu8;
+typedef i8				*pi8;
 
-}
-
-int main(void)
-{
- 	RCC_Configuration();
-	GPIO_Configuration();
-
-	vidInit();
-	sysInitSystemTimer();
-	
-	demoInit();
-	
-	return 0;
-}
+#endif	// __GDPTYPES_H

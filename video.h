@@ -4,8 +4,8 @@
  * http://www.artekit.eu
  * Written by Ruben H. Meleca
  
-### main.c
- 
+### video.h
+
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
 #   the Free Software Foundation; either version 2 of the License, or
@@ -22,36 +22,30 @@
 
 ***************************************************************************/
 
-#include "stm32f10x.h"
-#include "sys.h"
-#include "video.h"
-#include "gdi.h"
+#ifndef	__VIDEO_H
+#define	__VIDEO_H
 
-extern void demoInit(void);
+#include "gdptypes.h"
 
-void RCC_Configuration(void)
-{
-	/* TIM1, GPIOA, GPIOB, GPIOE and AFIO clocks enable */
-	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 | RCC_APB2Periph_SPI1 | RCC_APB2Periph_TIM1 | RCC_APB2Periph_GPIOA |
-							RCC_APB2Periph_GPIOB | RCC_APB2Periph_AFIO, ENABLE);
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
-}
+#define	VID_HSIZE		50		// Horizontal resolution (in bytes)
+#define	VID_VSIZE		200		// Vertical resolution (in lines)
 
-void GPIO_Configuration(void)
-{
+#define	VID_PIXELS_X	(VID_HSIZE * 8)
+#define	VID_PIXELS_Y	VID_VSIZE
+#define	VID_PIXELS_XR	(VID_PIXELS_X + 16)
+#define	VID_HSIZE_R		(VID_HSIZE + 2)
 
-}
+//	Function definitions
 
-int main(void)
-{
- 	RCC_Configuration();
-	GPIO_Configuration();
+void	vidInit(void);
+void	vidClearScreen(void);
 
-	vidInit();
-	sysInitSystemTimer();
-	
-	demoInit();
-	
-	return 0;
-}
+
+
+
+
+
+
+
+#endif	// __VIDEO_H
+

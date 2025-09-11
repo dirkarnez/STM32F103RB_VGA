@@ -4,7 +4,7 @@
  * http://www.artekit.eu
  * Written by Ruben H. Meleca
  
-### main.c
+### sys.h
  
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -21,37 +21,14 @@
 #   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 
 ***************************************************************************/
+#ifndef	__SYS_H
+#define	__SYS_H
 
-#include "stm32f10x.h"
-#include "sys.h"
-#include "video.h"
-#include "gdi.h"
+#include "gdptypes.h"
 
-extern void demoInit(void);
+//	Function definitions
 
-void RCC_Configuration(void)
-{
-	/* TIM1, GPIOA, GPIOB, GPIOE and AFIO clocks enable */
-	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 | RCC_APB2Periph_SPI1 | RCC_APB2Periph_TIM1 | RCC_APB2Periph_GPIOA |
-							RCC_APB2Periph_GPIOB | RCC_APB2Periph_AFIO, ENABLE);
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
-}
+u8		sysInitSystemTimer(void);
+void	sysDelayMs(u32 dly);
 
-void GPIO_Configuration(void)
-{
-
-}
-
-int main(void)
-{
- 	RCC_Configuration();
-	GPIO_Configuration();
-
-	vidInit();
-	sysInitSystemTimer();
-	
-	demoInit();
-	
-	return 0;
-}
+#endif	// __SYS_H

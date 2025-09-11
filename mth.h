@@ -4,7 +4,7 @@
  * http://www.artekit.eu
  * Written by Ruben H. Meleca
  
-### main.c
+### mth.h
  
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -22,36 +22,12 @@
 
 ***************************************************************************/
 
-#include "stm32f10x.h"
-#include "sys.h"
-#include "video.h"
-#include "gdi.h"
+#ifndef	__MTH_H
+#define	__MTH_H
 
-extern void demoInit(void);
+#include "gdptypes.h"
 
-void RCC_Configuration(void)
-{
-	/* TIM1, GPIOA, GPIOB, GPIOE and AFIO clocks enable */
-	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 | RCC_APB2Periph_SPI1 | RCC_APB2Periph_TIM1 | RCC_APB2Periph_GPIOA |
-							RCC_APB2Periph_GPIOB | RCC_APB2Periph_AFIO, ENABLE);
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
-}
+i16		mthSin(u16 angle);		// Return sine value from 0 to +-10000
+i16		mthCos(u16 angle);		// Return cosine value from 0 to +-10000
 
-void GPIO_Configuration(void)
-{
-
-}
-
-int main(void)
-{
- 	RCC_Configuration();
-	GPIO_Configuration();
-
-	vidInit();
-	sysInitSystemTimer();
-	
-	demoInit();
-	
-	return 0;
-}
+#endif	// __MTH_H
